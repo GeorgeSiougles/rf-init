@@ -30,11 +30,9 @@ const charactersSlice = createSlice({
       });
     },
     increaseIndex(state) {
-      console.log('increase');
       state.currentCharacterIndex = state.currentCharacterIndex + 1;
     },
     resetIndex(state) {
-      console.log('reset');
       state.currentCharacterIndex = 0;
     },
   },
