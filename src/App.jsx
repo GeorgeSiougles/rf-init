@@ -4,7 +4,6 @@ import CharacterInput from './components/CharacterInput';
 import OrderedCharacters from './components/OrderedCharacters';
 
 function App() {
-  const [isInCombat, setIsInCombat] = useState(false);
   const [characters, setCharacters] = useState([]);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
   const [currentRound, setCurrentRound] = useState(1);
@@ -21,40 +20,32 @@ function App() {
 
   const handleAddCharacter = (newCharacter) => {
     console.log(newCharacter);
+    setCharacters((prev) => [...prev, newCharacter]);
   };
   return (
     <div className="flex flex-col">
-      {!isInCombat ? (
+      <div>
+        <CharacterInput onAddCharacter={handleAddCharacter} />
+        <button className="btn btn-active btn-accent m-2">Add Character</button>
+        <button className="btn btn-active btn-neutral m-2">Done rolling</button>
+      </div>
+
+      <>
         <div>
-          <CharacterInput onAddCharacter={handleAddCharacter} />
-          <button className="btn btn-active btn-accent m-2">
-            Add Character
-          </button>
+          <div className="badge">
+            Current Character: index{currentCharacterIndex}
+          </div>
+          <CharacterInput />
+          <div className="badge">Round Number #{currentRound}</div>
           <button
-            onClick={() => setIsInCombat(true)}
-            className="btn btn-active btn-neutral m-2"
+            className="btn btn-active btn-neutral"
+            onClick={handleEndTurn}
           >
-            Done rolling
+            End turn
           </button>
         </div>
-      ) : (
-        <>
-          <div>
-            <div className="badge">
-              Current Character: index{currentCharacterIndex}
-            </div>
-            <CharacterInput />
-            <div className="badge">Round Number #{currentRound}</div>
-            <button
-              className="btn btn-active btn-neutral"
-              onClick={handleEndTurn}
-            >
-              End turn
-            </button>
-          </div>
-          <OrderedCharacters characters={characters} />
-        </>
-      )}
+        <OrderedCharacters characters={characters} />
+      </>
     </div>
   );
 }

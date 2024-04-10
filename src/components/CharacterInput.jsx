@@ -4,27 +4,28 @@ const CharacterInput = ({ onAddCharacter }) => {
   const [newCharacter, setNewCharacter] = useState({
     characterName: '',
     initiativeBonus: '',
-    statusEffects: [''],
+
     player: false,
     initiativeRoll: 0,
   });
+
   const handleNameChange = (e) => {
     setNewCharacter((prev) => {
       return { ...prev, characterName: e.target.value };
     });
   };
+
   const handleBonusChange = (e) => {
     setNewCharacter((prev) => {
       return { ...prev, initiativeBonus: e.target.value };
     });
   };
-  const handleStatusChange = (e) => {};
+
   const handlePlayerChange = (e) => {
     setNewCharacter((prev) => {
       return { ...prev, player: e.target.checked };
     });
   };
-  const handleRollChange = (e) => {};
 
   const handleRollClick = () => {
     onAddCharacter(newCharacter);
@@ -48,14 +49,6 @@ const CharacterInput = ({ onAddCharacter }) => {
         className="input input-bordered  max-w-xs"
         value={newCharacter.initiativeBonus}
         onChange={handleBonusChange}
-      />
-      <div className="badge">Status effect</div>
-      <input
-        type="text"
-        placeholder="prone:10"
-        className="input input-bordered  max-w-xs"
-        value={newCharacter.statusEffects}
-        onChange={handleStatusChange}
       />
       <div className="badge">
         <label className="cursor-pointer label">

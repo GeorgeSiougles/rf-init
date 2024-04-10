@@ -15,12 +15,6 @@ const CurrentCharacter = () => {
         className="input input-bordered  max-w-xs"
         disabled
       />
-      <div className="badge">Status effect</div>
-      <input
-        type="text"
-        placeholder="prone:10"
-        className="input input-bordered  max-w-xs"
-      />
       <div className="badge">
         <label className="cursor-pointer label">
           <span className="label-text mx-2">Player or NPC</span>
