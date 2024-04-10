@@ -23,7 +23,7 @@ function App() {
   };
 
   const handleEndTurn = () => {
-    if (currentCharacterIndex < characters.length) {
+    if (currentCharacterIndex < characters.length - 1) {
       dispatch(increaseIndex());
     } else {
       dispatch(resetIndex());

@@ -22,11 +22,11 @@ const charactersSlice = createSlice({
         return initiativeB - initiativeA;
       });
     },
-    increaseIndex(state, action) {
+    increaseIndex(state) {
       console.log('increase');
       state.currentCharacterIndex = state.currentCharacterIndex + 1;
     },
-    resetIndex(state, action) {
+    resetIndex(state) {
       console.log('reset');
       state.currentCharacterIndex = 0;
     },
