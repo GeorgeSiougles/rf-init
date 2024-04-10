@@ -1,23 +1,22 @@
+import { nanoid } from 'nanoid';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addCharacter } from '../store/charactersSlice';
 
-const CharacterInput = ({ onAddCharacter }) => {
+const CharacterInput = () => {
+  const dispatch = useDispatch();
+
   const [newCharacter, setNewCharacter] = useState({
-    characterName: '',
-    initiativeBonus: '',
-
+    id: '',
+    name: '',
     player: false,
-    initiativeRoll: 0,
+    rolledInitiative: 0,
+    bonus: 0,
   });
 
   const handleNameChange = (e) => {
     setNewCharacter((prev) => {
-      return { ...prev, characterName: e.target.value };
-    });
-  };
-
-  const handleBonusChange = (e) => {
-    setNewCharacter((prev) => {
-      return { ...prev, initiativeBonus: e.target.value };
+      return { ...prev, name: e.target.value };
     });
   };
 
@@ -27,8 +26,31 @@ const CharacterInput = ({ onAddCharacter }) => {
     });
   };
 
+  const handleBonusChange = (e) => {
+    setNewCharacter((prev) => {
+      return { ...prev, bonus: e.target.value };
+    });
+  };
+
   const handleRollClick = () => {
-    onAddCharacter(newCharacter);
+    const rolledValue = Math.floor(Math.random() * 20) + 1;
+    const newId = nanoid();
+
+    const updatedCharacter = {
+      ...newCharacter,
+      rolledInitiative: rolledValue,
+      id: newId,
+    };
+
+    dispatch(addCharacter(updatedCharacter));
+
+    setNewCharacter({
+      id: '',
+      name: '',
+      player: false,
+      rolledInitiative: 0,
+      bonus: 0,
+    });
   };
 
   return (
@@ -38,7 +60,7 @@ const CharacterInput = ({ onAddCharacter }) => {
         type="text"
         placeholder="Enter the name"
         className="input input-bordered  max-w-xs"
-        value={newCharacter.characterName}
+        value={newCharacter.name}
         onChange={handleNameChange}
       />
       <div className="badge">Initiative Bonus:</div>
@@ -47,7 +69,7 @@ const CharacterInput = ({ onAddCharacter }) => {
         type="number"
         placeholder="Enter total bonus"
         className="input input-bordered  max-w-xs"
-        value={newCharacter.initiativeBonus}
+        value={newCharacter.bonus}
         onChange={handleBonusChange}
       />
       <div className="badge">
