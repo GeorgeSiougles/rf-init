@@ -3,10 +3,10 @@ import OrderedCharacter from './OrderedCharacter';
 const OrderedCharacters = ({ characters }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="table table-zebra">
+      <table className="table">
         <thead>
           <tr>
-            <th>Pos</th>
+            <th>Total Initiative</th>
             <th>Name</th>
             <th>Player or NPC </th>
             <th>Remove</th>

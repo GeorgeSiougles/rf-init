@@ -6,17 +6,12 @@ const OrderedCharacter = ({ character, index }) => {
   );
 
   return (
-    <tr>
-      <th>{index + 1}</th>
-      <td>
-        {character.name}
-        {currentCharacterIndex === index
-          ? 'Active Character'
-          : 'InactiveCharacter'}
-      </td>
+    <tr className={`${currentCharacterIndex === index ? 'bg-base-200' : null}`}>
+      <th>{+character.rolledInitiative + +character.bonus}</th>
+      <td>{character.name}</td>
       <td>{character.player ? 'Player' : 'NPC'}</td>
       <td>
-        <button>{currentCharacterIndex}Click to remove</button>
+        <button>Click to remove</button>
       </td>
     </tr>
   );
