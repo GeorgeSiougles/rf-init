@@ -35,7 +35,6 @@ function App() {
     <div className="flex flex-col">
       <div>
         <CharacterInput />
-        <button className="btn btn-active btn-accent m-2">Add Character</button>
         <button
           onClick={handleSortCharacters}
           className="btn btn-active btn-neutral m-2"
@@ -44,13 +43,13 @@ function App() {
         </button>
       </div>
 
-      <>
+      {characters.length > 0 ? (
         <div>
           <div className="badge">
             Current Character: #{currentCharacterIndex}
+            Character name: {characters[currentCharacterIndex].name}
             total length: {characters.length}
           </div>
-          {/* <CharacterInput /> */}
           <div className="badge">Round Number #{currentRound}</div>
           <button
             className="btn btn-active btn-neutral"
@@ -58,9 +57,11 @@ function App() {
           >
             End turn
           </button>
+          <OrderedCharacters characters={characters} />
         </div>
-        <OrderedCharacters characters={characters} />
-      </>
+      ) : (
+        <div className="badge">Please add some characters</div>
+      )}
     </div>
   );
 }
