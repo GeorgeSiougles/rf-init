@@ -63,8 +63,6 @@ const CharacterInput = () => {
       inputError = true;
     }
     if (inputError) return;
-    console.log('Character to instert:', updatedCharacter);
-    console.log('Initiative:', updatedCharacter.bonus);
     dispatch(addCharacter(updatedCharacter));
     setError({ name: false, bonus: false });
 
