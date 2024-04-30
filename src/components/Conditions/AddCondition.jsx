@@ -1,5 +1,5 @@
 import { Plus } from 'lucide-react';
-import { conditions } from '../../utlis/allConditions';
+import { conditionsWithDescription } from '../../utlis/allConditions';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addCondition } from '../../store/charactersSlice';
@@ -49,7 +49,16 @@ const AddCondition = ({ id }) => {
       console.log('Condition input error', newCondition, newDuration);
       return;
     }
-    const condition = { condition: newCondition, duration: +newDuration };
+    const properDescription = conditionsWithDescription.filter(
+      (condition) => condition.name === newCondition
+    );
+    const extractedDescription = properDescription[0].description;
+
+    const condition = {
+      condition: newCondition,
+      duration: +newDuration,
+      description: extractedDescription,
+    };
     console.log('Calling dispatch with params: ', id, condition);
     dispatch(addCondition({ characterId: id, condition: condition }));
     setNewCondition('not-selected');
@@ -67,9 +76,9 @@ const AddCondition = ({ id }) => {
           <option value="not-selected" disabled>
             Select Condition
           </option>
-          {conditions.map((condition) => (
-            <option key={condition} value={condition}>
-              {condition}
+          {conditionsWithDescription.map((condition) => (
+            <option key={condition.name} value={condition.name}>
+              {condition.name}
             </option>
           ))}
         </select>
