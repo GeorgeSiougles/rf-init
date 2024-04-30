@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCharacter, sortCharacters } from '../store/charactersSlice';
 import ErrorMessage from './ErrorMessage';
+import { FaDiceD20 } from 'react-icons/fa6';
 
 const CharacterInput = () => {
   const dispatch = useDispatch();
@@ -110,7 +111,7 @@ const CharacterInput = () => {
         </label>
       </div>
       <button onClick={handleRollClick} className="btn btn-active btn-primary">
-        Roll
+        <FaDiceD20 size="1.5em" />
       </button>
       {error.name && <ErrorMessage message="Name cannot be empty" />}
       {error.bonus && <ErrorMessage message="Must be a valid integer" />}
