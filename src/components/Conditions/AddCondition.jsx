@@ -36,7 +36,8 @@ const AddCondition = ({ id }) => {
         return { ...prev, condition: true };
       });
     }
-    if (newDuration === '') {
+    console.log(newDuration);
+    if (newDuration === '' || newDuration < 1) {
       inputError = true;
 
       setError((prev) => {
