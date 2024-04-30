@@ -89,7 +89,11 @@ const AddCondition = ({ id }) => {
           onChange={handleDurationChange}
           value={newDuration}
         />
-        <button onClick={handleAddCondition}>
+        <button
+          onClick={handleAddCondition}
+          className="tooltip"
+          data-tip="Click to add condition"
+        >
           <Plus />
         </button>
       </label>

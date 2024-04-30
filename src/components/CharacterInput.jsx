@@ -110,7 +110,11 @@ const CharacterInput = () => {
           />
         </label>
       </div>
-      <button onClick={handleRollClick} className="btn btn-active btn-primary">
+      <button
+        onClick={handleRollClick}
+        className="btn btn-active btn-primary tooltip tooltip-bottom"
+        data-tip="Click to add a character"
+      >
         <FaDiceD20 size="1.5em" />
       </button>
       {error.name && <ErrorMessage message="Name cannot be empty" />}
