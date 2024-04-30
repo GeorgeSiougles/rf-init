@@ -6,9 +6,10 @@ const OrderedCharacters = ({ characters }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>Total Initiative</th>
+            <th className="w-[10%]">Total Initiative</th>
             <th>Name</th>
             <th>Player or NPC </th>
+            <th>Conditions </th>
             <th>Remove</th>
           </tr>
         </thead>
