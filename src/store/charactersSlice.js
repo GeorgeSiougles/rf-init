@@ -29,6 +29,9 @@ const charactersSlice = createSlice({
         }
       });
     },
+    resetCharacters(state) {
+      while (state.list.length > 0) state.list.pop();
+    },
     increaseIndex(state) {
       state.currentCharacterIndex = state.currentCharacterIndex + 1;
     },
@@ -49,43 +52,15 @@ const charactersSlice = createSlice({
         );
         if (existingConditionIndex !== -1) {
           console.log('Condition found, increase duration');
-          // If condition already exists, increase its duration
           character.conditions[existingConditionIndex].duration +=
             condition.duration;
         } else {
-          // Otherwise, add new condition
           console.log('Condition not found, adding new condition');
           character.conditions.push(condition);
         }
       }
     },
-    // addCondition(state, action) {
-    //   const { characterId, condition } = action.payload;
-    //   console.log('Rendred at addCondition from action.payload:');
-    //   console.log('characterId:', characterId);
-    //   console.log('condition:', condition);
 
-    //   const character = state.list.find((char) => char.id === characterId);
-    //   if (character) {
-    //     console.log('Character found from id:', character);
-    //     const existingConditionIndex = character.conditions.findIndex(
-    //       (cond) => {
-    //         console.log('Looking for existing condition:', cond.condition);
-    //         cond.condition === condition.condition;
-    //       }
-    //     );
-    //     if (existingConditionIndex !== -1) {
-    //       console.log('Condition found increase duration');
-    //       // If condition already exists, increase duration
-    //       character.conditions[existingConditionIndex].duration +=
-    //         condition.duration;
-    //     } else {
-    //       // Otherwise, add new condition
-    //       console.log('Condition not found');
-    //       character.conditions.push(condition);
-    //     }
-    //   }
-    // },
     removeCondition(state, action) {},
     endTurn(state) {
       state.list.forEach((character) => {
@@ -106,6 +81,7 @@ export const {
   addCharacter,
   removeCharacter,
   sortCharacters,
+  resetCharacters,
   increaseIndex,
   resetIndex,
   addCondition,
