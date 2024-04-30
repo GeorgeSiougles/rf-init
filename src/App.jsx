@@ -36,7 +36,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col m-2">
       <div>
         <CharacterInput />
       </div>
