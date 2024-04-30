@@ -21,6 +21,7 @@ function App() {
 
   const handleClearCharacters = () => {
     dispatch(resetCharacters());
+    setCurrentRound(1);
   };
 
   const handleEndTurn = () => {
