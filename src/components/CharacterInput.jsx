@@ -1,11 +1,12 @@
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addCharacter } from '../store/charactersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCharacter, sortCharacters } from '../store/charactersSlice';
 import ErrorMessage from './ErrorMessage';
 
 const CharacterInput = () => {
   const dispatch = useDispatch();
+  const characters = useSelector((state) => state.characters.list);
 
   const [newCharacter, setNewCharacter] = useState({
     id: '',
@@ -13,8 +14,9 @@ const CharacterInput = () => {
     player: false,
     rolledInitiative: 0,
     bonus: 0,
+    conditions: [],
   });
-  const [error, setError] = useState({ name: false, bonus: false });
+  const [error, setError] = useState([]);
 
   const handleNameChange = (e) => {
     setNewCharacter((prev) => {
@@ -63,7 +65,9 @@ const CharacterInput = () => {
       inputError = true;
     }
     if (inputError) return;
+
     dispatch(addCharacter(updatedCharacter));
+    if (characters.length > 0) dispatch(sortCharacters());
     setError({ name: false, bonus: false });
 
     setNewCharacter({
@@ -72,6 +76,7 @@ const CharacterInput = () => {
       player: false,
       rolledInitiative: 0,
       bonus: 0,
+      conditions: [],
     });
   };
 
@@ -87,7 +92,6 @@ const CharacterInput = () => {
       />
       <div className="badge">Initiative Bonus:</div>
       <input
-        min={0}
         type="number"
         placeholder="Enter total bonus"
         className="input input-bordered  max-w-xs"
