@@ -4,9 +4,10 @@ import CharacterInput from './components/CharacterInput';
 import OrderedCharacters from './components/OrderedCharacters';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  endTurn,
   increaseIndex,
+  resetCharacters,
   resetIndex,
-  sortCharacters,
 } from './store/charactersSlice';
 
 function App() {
@@ -18,8 +19,8 @@ function App() {
 
   const [currentRound, setCurrentRound] = useState(1);
 
-  const handleSortCharacters = () => {
-    dispatch(sortCharacters());
+  const handleClearCharacters = () => {
+    dispatch(resetCharacters());
   };
 
   const handleEndTurn = () => {
@@ -28,35 +29,33 @@ function App() {
     } else {
       dispatch(resetIndex());
       setCurrentRound((prev) => prev + 1);
+      dispatch(endTurn());
     }
+    console.log('Rendered from App.jsx');
+    console.log('All characters:', characters);
   };
 
   return (
     <div className="flex flex-col">
       <div>
         <CharacterInput />
-        <button
-          onClick={handleSortCharacters}
-          className="btn btn-active btn-neutral m-2"
-        >
-          Sort Characters
-        </button>
       </div>
 
       {characters.length > 0 ? (
         <div>
-          <div className="badge">
-            Current Character: #{currentCharacterIndex}
-            Character name: {characters[currentCharacterIndex].name}
-            total length: {characters.length}
-          </div>
-          <div className="badge">Round Number #{currentRound}</div>
           <button
-            className="btn btn-active btn-neutral"
+            onClick={handleClearCharacters}
+            className="btn btn-outline btn-error m-2"
+          >
+            Clear characters
+          </button>
+          <button
+            className="btn btn-active btn-neutral m-2"
             onClick={handleEndTurn}
           >
             End turn
           </button>
+          <div className="badge">Round Number #{currentRound}</div>
           <OrderedCharacters characters={characters} />
         </div>
       ) : (
