@@ -61,7 +61,16 @@ const charactersSlice = createSlice({
       }
     },
 
-    removeCondition(state, action) {},
+    removeCondition(state, action) {
+      const { characterId, conditionName } = action.payload;
+      const character = state.list.find((char) => char.id === characterId);
+      if (character) {
+        // Filter out the condition to be removed
+        character.conditions = character.conditions.filter(
+          (cond) => cond.condition !== conditionName
+        );
+      }
+    },
     endTurn(state) {
       state.list.forEach((character) => {
         character.conditions.forEach((condition) => {
