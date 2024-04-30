@@ -40,22 +40,16 @@ const charactersSlice = createSlice({
     },
     addCondition(state, action) {
       const { characterId, condition } = action.payload;
-      console.log('Rendred at addCondition from action.payload:');
-      console.log('characterId:', characterId);
-      console.log('condition:', condition);
 
       const character = state.list.find((char) => char.id === characterId);
       if (character) {
-        console.log('Character found from id:', character);
         const existingConditionIndex = character.conditions.findIndex(
           (cond) => cond.condition === condition.condition
         );
         if (existingConditionIndex !== -1) {
-          console.log('Condition found, increase duration');
           character.conditions[existingConditionIndex].duration +=
             condition.duration;
         } else {
-          console.log('Condition not found, adding new condition');
           character.conditions.push(condition);
         }
       }
@@ -64,8 +58,8 @@ const charactersSlice = createSlice({
     removeCondition(state, action) {
       const { characterId, conditionName } = action.payload;
       const character = state.list.find((char) => char.id === characterId);
+
       if (character) {
-        // Filter out the condition to be removed
         character.conditions = character.conditions.filter(
           (cond) => cond.condition !== conditionName
         );
@@ -74,8 +68,6 @@ const charactersSlice = createSlice({
     endTurn(state) {
       state.list.forEach((character) => {
         character.conditions.forEach((condition) => {
-          console.log('Rendered from endTurn');
-          console.log('Duration left:', condition.duration);
           condition.duration--;
         });
         character.conditions = character.conditions.filter(

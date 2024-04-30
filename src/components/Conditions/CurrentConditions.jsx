@@ -1,20 +1,11 @@
 import { Minus } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { removeCondition } from '../../store/charactersSlice';
-import { conditionsWithDescription } from '../../utlis/allConditions';
 import ConditionDrawer from './ConditionDrawer';
 
 const CurrentConditions = ({ id, conditions }) => {
   const dispatch = useDispatch();
   const handleRemoveConditionClick = (condition) => {
-    console.log(
-      'Called before dispatch(removeCondition)) for condition name:',
-      condition
-    );
-    console.log(
-      'Attemt to access the condition description:',
-      conditionsWithDescription[condition.condition]
-    );
     dispatch(removeCondition({ characterId: id, conditionName: condition }));
   };
   return (

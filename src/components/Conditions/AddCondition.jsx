@@ -35,7 +35,6 @@ const AddCondition = ({ id }) => {
       setError((prev) => {
         return { ...prev, condition: true };
       });
-      console.log('newCondition Error');
     }
     if (newDuration === '') {
       inputError = true;
@@ -43,10 +42,8 @@ const AddCondition = ({ id }) => {
       setError((prev) => {
         return { ...prev, duration: true };
       });
-      console.log('newDuration Error');
     }
     if (inputError) {
-      console.log('Condition input error', newCondition, newDuration);
       return;
     }
     const properDescription = conditionsWithDescription.filter(
@@ -59,7 +56,6 @@ const AddCondition = ({ id }) => {
       duration: +newDuration,
       description: extractedDescription,
     };
-    console.log('Calling dispatch with params: ', id, condition);
     dispatch(addCondition({ characterId: id, condition: condition }));
     setNewCondition('not-selected');
     setNewDuration('');

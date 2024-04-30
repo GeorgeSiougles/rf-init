@@ -32,8 +32,6 @@ function App() {
       setCurrentRound((prev) => prev + 1);
       dispatch(endTurn());
     }
-    console.log('Rendered from App.jsx');
-    console.log('All characters:', characters);
   };
 
   return (
