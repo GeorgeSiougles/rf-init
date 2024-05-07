@@ -11,7 +11,7 @@ const TableRow = ({ character, index }) => {
   return (
     <tr className={`${currentCharacterIndex === index ? 'bg-base-200' : null}`}>
       <th className="max-w-xs">
-        {+character.rolledInitiative + +character.bonus}
+        {+character.initiativeValue + +character.bonus}
       </th>
       <td>{character.name}</td>
       <td>{character.player ? 'Player' : 'NPC'}</td>

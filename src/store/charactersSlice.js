@@ -17,15 +17,15 @@ const charactersSlice = createSlice({
     },
     sortCharacters(state) {
       state.list.sort((a, b) => {
-        const initiativeA = +a.rolledInitiative + +a.bonus;
-        const initiativeB = +b.rolledInitiative + +b.bonus;
+        const initiativeA = +a.initiativeValue + +a.bonus;
+        const initiativeB = +b.initiativeValue + +b.bonus;
         if (initiativeA !== initiativeB) return initiativeB - initiativeA;
         else {
-          const rerolledInitiativeA =
+          const reinitiativeValueA =
             +(Math.floor(Math.random() * 20) + 1) + +a.bonus;
-          const rerolledInitiativeB =
+          const reinitiativeValueB =
             +(Math.floor(Math.random() * 20) + 1) + +b.bonus;
-          return rerolledInitiativeA - rerolledInitiativeB;
+          return reinitiativeValueA - reinitiativeValueB;
         }
       });
     },
