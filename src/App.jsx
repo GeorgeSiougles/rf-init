@@ -14,7 +14,7 @@ import RulePicker from './components/RulePicker';
 function App() {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.characters.list);
-  const ruleSet = useSelector((state) => state.rules);
+  const ruleSet = useSelector((state) => state.characters.rules);
   const currentCharacterIndex = useSelector(
     (state) => state.characters.currentCharacterIndex
   );
