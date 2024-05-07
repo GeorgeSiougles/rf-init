@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="flex flex-col m-2">
       <div>
-        <CharacterInput />
+        <CharacterInput rules={ruleSet} />
       </div>
 
       {characters.length > 0 ? (
