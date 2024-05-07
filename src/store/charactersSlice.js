@@ -5,6 +5,7 @@ const charactersSlice = createSlice({
   initialState: {
     list: [],
     currentCharacterIndex: 0,
+    rules: 'dnd',
   },
   reducers: {
     addCharacter(state, action) {
@@ -37,6 +38,9 @@ const charactersSlice = createSlice({
     },
     resetIndex(state) {
       state.currentCharacterIndex = 0;
+    },
+    setRules(state, action) {
+      state.rules = action.payload;
     },
     addCondition(state, action) {
       const { characterId, condition } = action.payload;
@@ -85,6 +89,7 @@ export const {
   resetCharacters,
   increaseIndex,
   resetIndex,
+  setRules,
   addCondition,
   removeCondition,
   endTurn,
