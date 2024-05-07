@@ -101,7 +101,7 @@ const CharacterInput = ({ rules }) => {
         value={newCharacter.name}
         onChange={handleNameChange}
       />
-      <div className="badge">Initiative Bonus:</div>
+      <div className="badge">Initiative:</div>
       <input
         type="number"
         placeholder="Enter total bonus"
