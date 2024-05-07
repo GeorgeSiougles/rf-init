@@ -9,16 +9,17 @@ import {
   resetIndex,
 } from './store/charactersSlice';
 import Table from './components/Table/Table';
+import RulePicker from './components/RulePicker';
 
 function App() {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.characters.list);
+  const ruleSet = useSelector((state) => state.rules);
   const currentCharacterIndex = useSelector(
     (state) => state.characters.currentCharacterIndex
   );
 
   const [currentRound, setCurrentRound] = useState(1);
-  const [ruleSet, setRuleSet] = useState('dnd');
 
   const handleClearCharacters = () => {
     dispatch(resetCharacters());
@@ -40,7 +41,11 @@ function App() {
       <div>
         <CharacterInput rules={ruleSet} />
       </div>
-
+      {characters.length === 0 && (
+        <div>
+          <RulePicker />
+        </div>
+      )}
       {characters.length > 0 ? (
         <div>
           <button
