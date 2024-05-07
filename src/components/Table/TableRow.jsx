@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeCharacter } from '../store/charactersSlice';
-import Conditions from './Conditions/Conditions';
+import { removeCharacter } from '../../store/charactersSlice';
+import Conditions from '../Conditions/Conditions';
 
-const OrderedCharacter = ({ character, index }) => {
+const TableRow = ({ character, index }) => {
   const currentCharacterIndex = useSelector(
     (state) => state.characters.currentCharacterIndex
   );
@@ -30,4 +30,4 @@ const OrderedCharacter = ({ character, index }) => {
     </tr>
   );
 };
-export default OrderedCharacter;
+export default TableRow;

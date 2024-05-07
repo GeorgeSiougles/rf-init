@@ -1,7 +1,6 @@
 import './App.css';
 import { useState } from 'react';
 import CharacterInput from './components/CharacterInput';
-import OrderedCharacters from './components/OrderedCharacters';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   endTurn,
@@ -9,6 +8,7 @@ import {
   resetCharacters,
   resetIndex,
 } from './store/charactersSlice';
+import Table from './components/Table/Table';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ function App() {
   );
 
   const [currentRound, setCurrentRound] = useState(1);
+  const [ruleSet, setRuleSet] = useState('dnd');
 
   const handleClearCharacters = () => {
     dispatch(resetCharacters());
@@ -55,7 +56,8 @@ function App() {
             End turn
           </button>
           <div className="badge">Round Number #{currentRound}</div>
-          <OrderedCharacters characters={characters} />
+          <Table headerStyle={ruleSet} bodyData={characters} />
+          {/* <OrderedCharacters characters={characters} /> */}
         </div>
       ) : (
         <div className="badge">Please add some characters</div>
