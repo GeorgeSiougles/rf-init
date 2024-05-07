@@ -5,7 +5,7 @@ import { addCharacter, sortCharacters } from '../store/charactersSlice';
 import ErrorMessage from './ErrorMessage';
 import { FaDiceD20 } from 'react-icons/fa6';
 
-const CharacterInput = () => {
+const CharacterInput = ({ rules }) => {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.characters.list);
 
@@ -13,7 +13,7 @@ const CharacterInput = () => {
     id: '',
     name: '',
     player: false,
-    rolledInitiative: 0,
+    initiativeValue: 0,
     bonus: 0,
     conditions: [],
   });
@@ -43,14 +43,21 @@ const CharacterInput = () => {
     });
   };
 
-  const handleRollClick = () => {
-    const rolledValue = Math.floor(Math.random() * 20) + 1;
+  const handleRollClick = (event) => {
+    event.preventDefault();
     const newId = nanoid();
     let inputError = false;
+    let rolledValue = 0;
+
+    switch (rules) {
+      case 'dnd':
+        rolledValue = Math.floor(Math.random() * 20) + 1;
+        break;
+    }
 
     const updatedCharacter = {
       ...newCharacter,
-      rolledInitiative: rolledValue,
+      initiativeValue: rolledValue,
       id: newId,
     };
     if (updatedCharacter.bonus === '') {
@@ -75,14 +82,17 @@ const CharacterInput = () => {
       id: '',
       name: '',
       player: false,
-      rolledInitiative: 0,
+      initiativeValue: 0,
       bonus: 0,
       conditions: [],
     });
   };
 
   return (
-    <div className="flex-row py-2 px-2">
+    <form
+      className="flex-row py-2 px-2"
+      onSubmit={(event) => handleRollClick(event)}
+    >
       <div className="badge">Character Name:</div>
       <input
         type="text"
@@ -111,7 +121,7 @@ const CharacterInput = () => {
         </label>
       </div>
       <button
-        onClick={handleRollClick}
+        type="submit"
         className="btn btn-active btn-primary tooltip tooltip-bottom"
         data-tip="Click to add a character"
       >
@@ -119,7 +129,7 @@ const CharacterInput = () => {
       </button>
       {error.name && <ErrorMessage message="Name cannot be empty" />}
       {error.bonus && <ErrorMessage message="Must be a valid integer" />}
-    </div>
+    </form>
   );
 };
 export default CharacterInput;
