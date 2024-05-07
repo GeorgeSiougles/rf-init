@@ -13,6 +13,15 @@ const Table = ({ headerStyle, bodyData }) => {
         'Remove',
       ];
       break;
+    case 'coc':
+      tableHeaders = [
+        'Initiative',
+        'Name',
+        'Player or NPC',
+        'Conditions',
+        'Remove',
+      ];
+      break;
   }
 
   return (

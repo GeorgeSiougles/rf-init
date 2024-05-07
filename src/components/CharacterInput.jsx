@@ -53,6 +53,9 @@ const CharacterInput = ({ rules }) => {
       case 'dnd':
         rolledValue = Math.floor(Math.random() * 20) + 1;
         break;
+      case 'coc':
+        rolledValue = 0;
+        break;
     }
 
     const updatedCharacter = {
