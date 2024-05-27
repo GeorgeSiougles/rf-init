@@ -5,7 +5,8 @@ import { addCharacter, sortCharacters } from '../store/charactersSlice';
 import ErrorMessage from './ErrorMessage';
 import { FaDiceD20 } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
-import RollToast from './RollToast';
+import RollToast from './Toasts/RollToast';
+import MessageToast from './Toasts/MessageToast';
 
 const CharacterInput = ({ rules }) => {
   const dispatch = useDispatch();
@@ -83,7 +84,12 @@ const CharacterInput = ({ rules }) => {
     if (characters.length > 0) dispatch(sortCharacters());
     setError({ name: false, bonus: false });
     toast.custom(() => (
-      <RollToast name={updatedCharacter.name} roll={rolledValue} />
+      <div className="flex flex-col">
+        {rolledValue !== 0 && (
+          <RollToast name={updatedCharacter.name} roll={rolledValue} />
+        )}
+        <MessageToast message={`${updatedCharacter.name} has been added!`} />
+      </div>
     ));
 
     setNewCharacter({
