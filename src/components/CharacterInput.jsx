@@ -46,6 +46,15 @@ const CharacterInput = ({ rules }) => {
     });
   };
 
+  const handleRangedChange = (e) => {
+    setNewCharacter((prev) => {
+      return {
+        ...prev,
+        ranged: e.target.checked,
+      };
+    });
+  };
+
   const handleRollClick = (event) => {
     event.preventDefault();
     const newId = nanoid();
@@ -134,6 +143,19 @@ const CharacterInput = ({ rules }) => {
           />
         </label>
       </div>
+      {rules === 'coc' && (
+        <div className="badge">
+          <label className="cursor-pointer label">
+            <span className="label-text mx-2">Ranged or Melee</span>
+            <input
+              type="checkbox"
+              className="checkbox checkbox-info mx-2"
+              checked={newCharacter.ranged}
+              onChange={handleRangedChange}
+            />
+          </label>
+        </div>
+      )}
       <button
         type="submit"
         className="btn btn-active btn-primary tooltip tooltip-bottom"
