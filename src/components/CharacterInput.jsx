@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCharacter, sortCharacters } from '../store/charactersSlice';
 import ErrorMessage from './ErrorMessage';
 import { FaDiceD20 } from 'react-icons/fa6';
+import toast from 'react-hot-toast';
+import RollToast from './RollToast';
 
 const CharacterInput = ({ rules }) => {
   const dispatch = useDispatch();
@@ -80,6 +82,9 @@ const CharacterInput = ({ rules }) => {
     dispatch(addCharacter(updatedCharacter));
     if (characters.length > 0) dispatch(sortCharacters());
     setError({ name: false, bonus: false });
+    toast.custom(() => (
+      <RollToast name={updatedCharacter.name} roll={rolledValue} />
+    ));
 
     setNewCharacter({
       id: '',
