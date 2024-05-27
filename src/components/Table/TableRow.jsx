@@ -10,6 +10,7 @@ import { GiSilverBullet } from 'react-icons/gi';
 import { FaHandFist } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import MessageToast from '../Toasts/MessageToast';
+import { CircleX } from 'lucide-react';
 
 const TableRow = ({ character, index }) => {
   const currentCharacterIndex = useSelector(
@@ -29,6 +30,13 @@ const TableRow = ({ character, index }) => {
     );
   };
 
+  const handleRemoval = () => {
+    dispatch(removeCharacter(character.id));
+    toast.custom(
+      <MessageToast message={`${character.name} removed from combat`} />
+    );
+  };
+
   return (
     <tr className={`${currentCharacterIndex === index ? 'bg-base-200' : null}`}>
       <th className="max-w-xs">
@@ -36,8 +44,11 @@ const TableRow = ({ character, index }) => {
       </th>
       <td>{character.name}</td>
       <td>{character.player ? 'Player' : 'NPC'}</td>
-      {rules === 'coc' && (
-        <td>
+      <td>
+        {rules === 'dnd' && (
+          <Conditions conditions={character.conditions} id={character.id} />
+        )}
+        {rules === 'coc' && (
           <button onClick={handleCombatStyleChange}>
             {character.ranged ? (
               <GiSilverBullet size={'32'} />
@@ -45,18 +56,15 @@ const TableRow = ({ character, index }) => {
               <FaHandFist size={'32'} />
             )}
           </button>
-        </td>
-      )}
-      <td>
-        <Conditions conditions={character.conditions} id={character.id} />
+        )}
       </td>
       <td>
         <button
-          onClick={() => {
-            dispatch(removeCharacter(character.id));
-          }}
+          className="tooltip ml-4"
+          data-tip="Click to remove"
+          onClick={handleRemoval}
         >
-          Click to remove
+          <CircleX />
         </button>
       </td>
     </tr>
