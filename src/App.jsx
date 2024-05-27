@@ -7,6 +7,8 @@ import {
   increaseIndex,
   resetCharacters,
   resetIndex,
+  resetNeedSort,
+  sortCharacters,
 } from './store/charactersSlice';
 import Table from './components/Table/Table';
 import RulePicker from './components/RulePicker';
@@ -16,6 +18,7 @@ function App() {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.characters.list);
   const ruleSet = useSelector((state) => state.characters.rules);
+  const needSort = useSelector((state) => state.characters.needSort);
   const currentCharacterIndex = useSelector(
     (state) => state.characters.currentCharacterIndex
   );
@@ -34,6 +37,10 @@ function App() {
       dispatch(resetIndex());
       setCurrentRound((prev) => prev + 1);
       dispatch(endTurn());
+      if (needSort) {
+        dispatch(sortCharacters());
+        dispatch(resetNeedSort());
+      }
     }
   };
 
@@ -74,58 +81,3 @@ function App() {
 }
 
 export default App;
-
-// INITIAL CODE WITH STATE
-
-// import { useState } from 'react';
-// import './App.css';
-// import CharacterInput from './components/CharacterInput';
-// import OrderedCharacters from './components/OrderedCharacters';
-
-// function App() {
-//   const [characters, setCharacters] = useState([]);
-//   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
-//   const [currentRound, setCurrentRound] = useState(1);
-
-//   const handleAddCharacter = (newCharacter) => {
-//     setCharacters((prev) => [...prev, newCharacter]);
-//   };
-
-//   const handleEndTurn = () => {
-//     if (currentCharacterIndex + 1 < characters.length)
-//       setCurrentCharacterIndex((prev) => prev + 1);
-//     else {
-//       setCurrentCharacterIndex(0);
-//       setCurrentRound((prev) => prev + 1);
-//     }
-//   };
-
-//   return (
-//     <div className="flex flex-col">
-//       <div>
-//         <CharacterInput onAddCharacter={handleAddCharacter} />
-//         <button className="btn btn-active btn-accent m-2">Add Character</button>
-//         <button className="btn btn-active btn-neutral m-2">Done rolling</button>
-//       </div>
-
-//       <>
-//         <div>
-//           <div className="badge">
-//             Current Character: index{currentCharacterIndex}
-//           </div>
-//           <CharacterInput />
-//           <div className="badge">Round Number #{currentRound}</div>
-//           <button
-//             className="btn btn-active btn-neutral"
-//             onClick={handleEndTurn}
-//           >
-//             End turn
-//           </button>
-//         </div>
-//         <OrderedCharacters characters={characters} />
-//       </>
-//     </div>
-//   );
-// }
-
-// export default App;
