@@ -18,6 +18,7 @@ const Table = ({ headerStyle, bodyData }) => {
         'Initiative',
         'Name',
         'Player or NPC',
+        'Ranged',
         'Conditions',
         'Remove',
       ];
