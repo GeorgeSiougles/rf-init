@@ -19,6 +19,7 @@ const CharacterInput = ({ rules }) => {
     initiativeValue: 0,
     bonus: 0,
     conditions: [],
+    ranged: false,
   });
   const [error, setError] = useState([]);
 
@@ -66,7 +67,7 @@ const CharacterInput = ({ rules }) => {
         rolledValue = Math.floor(Math.random() * 20) + 1;
         break;
       case 'coc':
-        rolledValue = 0;
+        rolledValue = 0 + newCharacter.ranged ? 50 : 0;
         break;
     }
 
@@ -108,6 +109,7 @@ const CharacterInput = ({ rules }) => {
       initiativeValue: 0,
       bonus: 0,
       conditions: [],
+      ranged: false,
     });
   };
 
