@@ -6,6 +6,7 @@ const charactersSlice = createSlice({
     list: [],
     currentCharacterIndex: 0,
     rules: 'dnd',
+    needSort: true,
   },
   reducers: {
     addCharacter(state, action) {
@@ -35,7 +36,6 @@ const charactersSlice = createSlice({
           return reinitiativeValueB - reinitiativeValueA;
         }
       });
-
       return {
         ...state,
         list: sortedList,
@@ -133,6 +133,31 @@ const charactersSlice = createSlice({
         }),
       };
     },
+    changeAttackStyle(state, action) {
+      const characterId = action.payload;
+      return {
+        ...state,
+        list: state.list.map((char) => {
+          if (char.id === characterId) {
+            const isRanged = !char.ranged;
+            const initiativeValue =
+              char.initiativeValue + (isRanged ? 50 : -50);
+            return {
+              ...char,
+              ranged: isRanged,
+              initiativeValue,
+            };
+          }
+          return char;
+        }),
+      };
+    },
+    setNeedSort(state) {
+      return { ...state, needSort: true };
+    },
+    resetNeedSort(state) {
+      return { ...state, needSort: false };
+    },
   },
 });
 
@@ -147,6 +172,9 @@ export const {
   addCondition,
   removeCondition,
   endTurn,
+  changeAttackStyle,
+  setNeedSort,
+  resetNeedSort,
 } = charactersSlice.actions;
 
 export default charactersSlice.reducer;
