@@ -17,6 +17,17 @@ const TableRow = ({ character, index }) => {
   );
   const dispatch = useDispatch();
   const rules = useSelector((state) => state.characters.rules);
+  const handleCombatStyleChange = () => {
+    dispatch(changeAttackStyle(character.id));
+    dispatch(setNeedSort(true));
+    toast.custom(
+      <MessageToast
+        message={`${character.name} changed attack style to ${
+          character.ranged ? 'Melee' : 'Ranged'
+        }`}
+      />
+    );
+  };
 
   return (
     <tr className={`${currentCharacterIndex === index ? 'bg-base-200' : null}`}>
@@ -27,19 +38,7 @@ const TableRow = ({ character, index }) => {
       <td>{character.player ? 'Player' : 'NPC'}</td>
       {rules === 'coc' && (
         <td>
-          <button
-            onClick={() => {
-              dispatch(changeAttackStyle(character.id));
-              dispatch(setNeedSort(true));
-              toast.custom(
-                <MessageToast
-                  message={`${character.name} changed attack style to ${
-                    character.ranged ? 'Melee' : 'Ranged'
-                  }`}
-                />
-              );
-            }}
-          >
+          <button onClick={handleCombatStyleChange}>
             {character.ranged ? (
               <GiSilverBullet size={'32'} />
             ) : (
