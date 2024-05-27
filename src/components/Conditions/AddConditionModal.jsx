@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addCondition } from '../../store/charactersSlice';
 import ErrorMessage from '../ErrorMessage';
+import toast from 'react-hot-toast';
+import MessageToast from '../Toasts/MessageToast';
 
 const AddConditionModal = ({ id }) => {
   const dispatch = useDispatch();
@@ -60,6 +62,11 @@ const AddConditionModal = ({ id }) => {
     setNewCondition('not-selected');
     setNewDuration('');
     document.getElementById(id).close();
+    toast.custom(
+      <MessageToast
+        message={`${condition.duration} rounds of ${condition.condition} added`}
+      />
+    );
   };
 
   return (
