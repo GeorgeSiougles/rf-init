@@ -1,11 +1,13 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setRules } from '../store/charactersSlice';
+import { rules } from '../utlis/rules';
 
 const RulePicker = () => {
   const dispatch = useDispatch();
   const handleSelect = (event) => {
     dispatch(setRules(event.target.value));
   };
+  const selectedRules = useSelector((state) => state.characters.rules);
   return (
     <>
       <div>Select ruleset:</div>
@@ -13,10 +15,13 @@ const RulePicker = () => {
         <select
           className="select select-secondary w-full max-w-xs"
           onChange={(event) => handleSelect(event)}
-          defaultValue="dnd"
+          defaultValue={selectedRules}
         >
-          <option value="dnd">DnD</option>
-          <option value="coc">CoC</option>
+          {rules.map((rule) => (
+            <option key={rule.value} value={rule.value}>
+              {rule.label}
+            </option>
+          ))}
         </select>
       </div>
     </>
