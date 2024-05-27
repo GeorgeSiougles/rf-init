@@ -83,14 +83,14 @@ const CharacterInput = ({ rules }) => {
     dispatch(addCharacter(updatedCharacter));
     if (characters.length > 0) dispatch(sortCharacters());
     setError({ name: false, bonus: false });
-    toast.custom(() => (
+    toast.custom(
       <div className="flex flex-col">
         {rolledValue !== 0 && (
           <RollToast name={updatedCharacter.name} roll={rolledValue} />
         )}
         <MessageToast message={`${updatedCharacter.name} has been added!`} />
       </div>
-    ));
+    );
 
     setNewCharacter({
       id: '',
