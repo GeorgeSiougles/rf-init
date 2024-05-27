@@ -1,10 +1,11 @@
-import AddCondition from './AddCondition';
+import AddConditionModal from './AddConditionModal';
 import CurrentConditions from './CurrentConditions';
 
 const Conditions = ({ conditions, id }) => {
   return (
     <>
-      <AddCondition id={id} />
+      {/* <AddCondition id={id} /> */}
+      <AddConditionModal id={id} />
       {conditions.length > 0 && (
         <CurrentConditions id={id} conditions={conditions} />
       )}
