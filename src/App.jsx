@@ -10,6 +10,7 @@ import {
 } from './store/charactersSlice';
 import Table from './components/Table/Table';
 import RulePicker from './components/RulePicker';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
 
   return (
     <div className="flex flex-col m-2">
+      <Toaster position="top-right" />
       <div>
         <CharacterInput rules={ruleSet} />
       </div>
