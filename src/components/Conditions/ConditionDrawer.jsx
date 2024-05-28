@@ -1,7 +1,7 @@
 const ConditionDrawer = ({ condition, duration, description }) => {
   return (
     // ID of the drawer can identify the drawer
-    <div className="drawer drawer-end">
+    <div className="drawer ">
       <input id={`${condition}`} type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <label htmlFor={`${condition}`} className="badge">
