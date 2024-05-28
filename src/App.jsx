@@ -50,11 +50,7 @@ function App() {
       <div>
         <CharacterInput rules={ruleSet} />
       </div>
-      {characters.length === 0 && (
-        <div>
-          <RulePicker />
-        </div>
-      )}
+      {characters.length === 0 && <RulePicker />}
       {characters.length > 0 ? (
         <div>
           <button
