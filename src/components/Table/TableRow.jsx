@@ -41,17 +41,17 @@ const TableRow = ({ character, index }) => {
       </th>
       <td>{character.name}</td>
       <td>{character.player ? 'Player' : 'NPC'}</td>
-      <td>
-        {rules === 'dnd' && (
-          <Conditions conditions={character.conditions} id={character.id} />
-        )}
-        {rules === 'coc' && (
+      {rules === 'coc' && (
+        <td>
           <Button
             onClick={handleCombatStyleChange}
             size="32"
             icon={`${character.ranged ? 'ranged' : 'melee'}`}
           />
-        )}
+        </td>
+      )}
+      <td>
+        <Conditions conditions={character.conditions} id={character.id} />
       </td>
       <td>
         <Button
