@@ -1,23 +1,39 @@
-import { conditionsWithDescription } from '../../utlis/allConditions';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCondition } from '../../store/charactersSlice';
 import ErrorMessage from '../ErrorMessage';
 import toast from 'react-hot-toast';
 import MessageToast from '../Toasts/MessageToast';
 import Button from '../Button';
+import { addCustomCondition } from '../../store/conditionsSlice';
 
 const AddConditionModal = ({ id }) => {
   const dispatch = useDispatch();
+  const conditionsWithDescription = useSelector(
+    (state) => state.allConditions.conditionsWithDescription
+  );
   const [newCondition, setNewCondition] = useState('not-selected');
   const [newDuration, setNewDuration] = useState('');
   const [error, setError] = useState([]);
+  const [addingCustomCondition, setAddingCustomCondition] = useState(false);
+  const [customCondition, setCustomCondition] = useState('');
 
   const handleConditionSelect = (e) => {
     const selectedCondition = e.target.value;
     if (selectedCondition.trim() !== '') {
       setNewCondition(selectedCondition);
     }
+    setError((prev) => {
+      return { ...prev, condition: false };
+    });
+  };
+
+  const handleCustomConditionToggle = () => {
+    setAddingCustomCondition((prev) => !prev);
+  };
+
+  const handleCustomConditionChange = (e) => {
+    setCustomCondition(e.target.value);
     setError((prev) => {
       return { ...prev, condition: false };
     });
@@ -32,7 +48,13 @@ const AddConditionModal = ({ id }) => {
 
   const handleAddCondition = () => {
     let inputError = false;
-    if (newCondition === 'not-selected') {
+    if (newCondition === 'not-selected' && !addingCustomCondition) {
+      inputError = true;
+      setError((prev) => {
+        return { ...prev, condition: true };
+      });
+    }
+    if (customCondition.trim() === '' && addingCustomCondition) {
       inputError = true;
       setError((prev) => {
         return { ...prev, condition: true };
@@ -48,19 +70,39 @@ const AddConditionModal = ({ id }) => {
     if (inputError) {
       return;
     }
-    const properDescription = conditionsWithDescription.filter(
-      (condition) => condition.name === newCondition
-    );
-    const extractedDescription = properDescription[0].description;
 
-    const condition = {
-      condition: newCondition,
-      duration: +newDuration,
-      description: extractedDescription,
-    };
+    let condition;
+
+    if (addingCustomCondition) {
+      condition = {
+        condition: customCondition,
+        duration: +newDuration,
+        description: 'custom',
+      };
+    } else {
+      const properDescription = conditionsWithDescription.filter(
+        (condition) => condition.name === newCondition
+      );
+      const extractedDescription = properDescription[0].description;
+      condition = {
+        condition: newCondition,
+        duration: +newDuration,
+        description: extractedDescription,
+      };
+    }
     dispatch(addCondition({ characterId: id, condition: condition }));
+
+    dispatch(
+      addCustomCondition({
+        name: condition.condition,
+        description: condition.description,
+      })
+    );
+
     setNewCondition('not-selected');
     setNewDuration('');
+    setCustomCondition('');
+    setAddingCustomCondition(false);
     document.getElementById(id).close();
     toast.custom(
       <MessageToast
@@ -85,20 +127,36 @@ const AddConditionModal = ({ id }) => {
             />
           </form>
           <label className="form-control w-full max-w-xs flex flex-row justify-center">
-            <select
-              className="select select-bordered"
-              onChange={handleConditionSelect}
-              value={newCondition}
-            >
-              <option value="not-selected" disabled>
-                Select Condition
-              </option>
-              {conditionsWithDescription.map((condition) => (
-                <option key={condition.name} value={condition.name}>
-                  {condition.name}
+            {addingCustomCondition ? (
+              <input
+                placeholder="Duration"
+                className="input w-full max-w-xs"
+                onChange={handleCustomConditionChange}
+                value={customCondition}
+              />
+            ) : (
+              <select
+                className="select select-bordered "
+                onChange={handleConditionSelect}
+                value={newCondition}
+              >
+                <option value="not-selected" disabled>
+                  Select Condition
                 </option>
-              ))}
-            </select>
+                {conditionsWithDescription.map((condition) => (
+                  <option key={condition.name} value={condition.name}>
+                    {condition.name}
+                  </option>
+                ))}
+              </select>
+            )}
+
+            <Button
+              onClick={handleCustomConditionToggle}
+              className="tooltip"
+              data-tip="Click to add a custom condition"
+              icon="addCustomCondition"
+            />
             <input
               type="number"
               placeholder="Duration"
