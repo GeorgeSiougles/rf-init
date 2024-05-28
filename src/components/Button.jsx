@@ -1,6 +1,7 @@
 import { CircleX, Dice6, Minus, Plus } from 'lucide-react';
 import { FaDiceD20, FaHandFist } from 'react-icons/fa6';
 import { GiSilverBullet } from 'react-icons/gi';
+import { TbPencilPlus } from 'react-icons/tb';
 
 const Button = ({ icon, size = '1.5em', ...props }) => {
   let iconElement;
@@ -28,6 +29,9 @@ const Button = ({ icon, size = '1.5em', ...props }) => {
       break;
     case 'openConditionModal':
       iconElement = 'Add condition';
+      break;
+    case 'addCustomCondition':
+      iconElement = <TbPencilPlus size={size} />;
       break;
 
     default:
