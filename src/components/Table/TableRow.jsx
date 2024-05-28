@@ -5,12 +5,9 @@ import {
   setNeedSort,
 } from '../../store/charactersSlice';
 import Conditions from '../Conditions/Conditions';
-
-import { GiSilverBullet } from 'react-icons/gi';
-import { FaHandFist } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import MessageToast from '../Toasts/MessageToast';
-import { CircleX } from 'lucide-react';
+import Button from '../Button';
 
 const TableRow = ({ character, index }) => {
   const currentCharacterIndex = useSelector(
@@ -49,23 +46,20 @@ const TableRow = ({ character, index }) => {
           <Conditions conditions={character.conditions} id={character.id} />
         )}
         {rules === 'coc' && (
-          <button onClick={handleCombatStyleChange}>
-            {character.ranged ? (
-              <GiSilverBullet size={'32'} />
-            ) : (
-              <FaHandFist size={'32'} />
-            )}
-          </button>
+          <Button
+            onClick={handleCombatStyleChange}
+            size="32"
+            icon={`${character.ranged ? 'ranged' : 'melee'}`}
+          />
         )}
       </td>
       <td>
-        <button
+        <Button
           className="tooltip ml-4"
           data-tip="Click to remove"
           onClick={handleRemoval}
-        >
-          <CircleX />
-        </button>
+          icon="remove"
+        />
       </td>
     </tr>
   );

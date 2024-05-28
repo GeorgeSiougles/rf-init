@@ -1,4 +1,3 @@
-import { Plus } from 'lucide-react';
 import { conditionsWithDescription } from '../../utlis/allConditions';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,6 +5,7 @@ import { addCondition } from '../../store/charactersSlice';
 import ErrorMessage from '../ErrorMessage';
 import toast from 'react-hot-toast';
 import MessageToast from '../Toasts/MessageToast';
+import Button from '../Button';
 
 const AddConditionModal = ({ id }) => {
   const dispatch = useDispatch();
@@ -71,18 +71,18 @@ const AddConditionModal = ({ id }) => {
 
   return (
     <>
-      <button
+      <Button
         className="btn"
         onClick={() => document.getElementById(id).showModal()}
-      >
-        Add condition
-      </button>
+        icon="openConditionModal"
+      />
       <dialog id={id} className="modal">
         <div className="modal-box max-w-xl sm:modal-middle modal-bottom">
           <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              X
-            </button>
+            <Button
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              icon="closeConditionModal"
+            />
           </form>
           <label className="form-control w-full max-w-xs flex flex-row justify-center">
             <select
@@ -106,13 +106,12 @@ const AddConditionModal = ({ id }) => {
               onChange={handleDurationChange}
               value={newDuration}
             />
-            <button
+            <Button
               onClick={handleAddCondition}
               className="tooltip"
               data-tip="Click to add condition"
-            >
-              <Plus />
-            </button>
+              icon="plus"
+            />
           </label>
           {error.condition && (
             <ErrorMessage message="Please select a condition" />

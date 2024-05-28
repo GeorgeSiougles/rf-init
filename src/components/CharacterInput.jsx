@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCharacter, sortCharacters } from '../store/charactersSlice';
 import ErrorMessage from './ErrorMessage';
-import { FaDiceD20 } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import RollToast from './Toasts/RollToast';
 import MessageToast from './Toasts/MessageToast';
+import Button from './Button';
 
 const CharacterInput = ({ rules }) => {
   const dispatch = useDispatch();
@@ -115,7 +115,7 @@ const CharacterInput = ({ rules }) => {
 
   return (
     <form
-      className="flex-row py-2 px-2"
+      className="flex-row py-2 px-2 w-full"
       onSubmit={(event) => handleRollClick(event)}
     >
       <div className="badge">Character Name:</div>
@@ -158,13 +158,13 @@ const CharacterInput = ({ rules }) => {
           </label>
         </div>
       )}
-      <button
+      <Button
         type="submit"
         className="btn btn-active btn-primary tooltip tooltip-bottom"
         data-tip="Click to add a character"
-      >
-        <FaDiceD20 size="1.5em" />
-      </button>
+        icon="d20"
+        size="1.5em"
+      />
       {error.name && <ErrorMessage message="Name cannot be empty" />}
       {error.bonus && <ErrorMessage message="Must be a valid integer" />}
     </form>

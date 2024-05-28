@@ -1,7 +1,7 @@
-import { Minus } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { removeCondition } from '../../store/charactersSlice';
 import ConditionDrawer from './ConditionDrawer';
+import Button from '../Button';
 
 const CurrentConditions = ({ id, conditions }) => {
   const dispatch = useDispatch();
@@ -21,28 +21,15 @@ const CurrentConditions = ({ id, conditions }) => {
             duration={condition.duration}
             description={condition.description}
           />
-          <button
+          <Button
             className="tooltip"
             data-tip="Click - to delete"
             onClick={() => handleRemoveConditionClick(condition.condition)}
-          >
-            <Minus />
-          </button>
+            icon="minus"
+          />
         </div>
       ))}
     </div>
-    // <div>
-    //   {conditions.map((condition, index) => (
-    //     <p className="tooltip" data-tip={condition.description} key={index}>
-    //       {condition.condition}:{condition.duration}
-    //       <button
-    //         onClick={() => handleRemoveConditionClick(condition.condition)}
-    //       >
-    //         <Minus />
-    //       </button>
-    //     </p>
-    //   ))}
-    // </div>
   );
 };
 export default CurrentConditions;
