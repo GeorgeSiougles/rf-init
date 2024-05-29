@@ -118,7 +118,7 @@ const CharacterInput = ({ rules }) => {
       className="flex-row py-2 px-2 w-full"
       onSubmit={(event) => handleRollClick(event)}
     >
-      <div className="badge">Character Name:</div>
+      <div className="badge mx-1">Character Name:</div>
       <input
         type="text"
         placeholder="Enter the name"
@@ -126,15 +126,15 @@ const CharacterInput = ({ rules }) => {
         value={newCharacter.name}
         onChange={handleNameChange}
       />
-      <div className="badge">Initiative:</div>
+      <div className="badge mx-1">Initiative:</div>
       <input
         type="number"
         placeholder="Enter total bonus"
-        className="input input-bordered  max-w-xs"
+        className="input input-bordered max-w-xs"
         value={newCharacter.bonus}
         onChange={handleBonusChange}
       />
-      <div className="badge">
+      <div className="badge mx-1">
         <label className="cursor-pointer label">
           <span className="label-text mx-2">Player or NPC</span>
           <input
@@ -146,7 +146,7 @@ const CharacterInput = ({ rules }) => {
         </label>
       </div>
       {rules === 'coc' && (
-        <div className="badge">
+        <div className="badge mx-1">
           <label className="cursor-pointer label">
             <span className="label-text mx-2">Ranged or Melee</span>
             <input

@@ -13,7 +13,7 @@ const RulePicker = () => {
       <div>Select ruleset:</div>
       <div>
         <select
-          className="select select-secondary w-full max-w-xs"
+          className="select select-secondary w-full max-w-xs my-2"
           onChange={(event) => handleSelect(event)}
           defaultValue={selectedRules}
         >

@@ -70,7 +70,7 @@ function App() {
           {/* <OrderedCharacters characters={characters} /> */}
         </div>
       ) : (
-        <div className="badge">Please add some characters</div>
+        <div className="badge mt-2">Please add some characters</div>
       )}
     </div>
   );
