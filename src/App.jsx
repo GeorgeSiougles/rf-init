@@ -44,7 +44,6 @@ function App() {
         </div>
       )
     );
-    console.log('Expired conditions:', expiredConditions);
   }, [expiredConditions]);
 
   const handleEndTurn = () => {
