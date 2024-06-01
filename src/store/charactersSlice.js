@@ -7,6 +7,7 @@ const charactersSlice = createSlice({
     currentCharacterIndex: 0,
     rules: 'dnd',
     needSort: true,
+    expiredConditions: [],
   },
   reducers: {
     addCharacter(state, action) {
@@ -116,21 +117,37 @@ const charactersSlice = createSlice({
       };
     },
     endTurn(state) {
+      const expiredConditions = [];
+
+      const newList = state.list.map((char) => {
+        const charExpiredConditions = char.conditions.filter(
+          (condition) => condition.duration - 1 <= 0
+        );
+
+        const newConditions = char.conditions
+          .map((condition) => ({
+            ...condition,
+            duration: condition.duration - 1,
+          }))
+          .filter((condition) => condition.duration > 0);
+
+        expiredConditions.push(
+          ...charExpiredConditions.map((condition) => ({
+            ...condition,
+            characterName: char.name,
+          }))
+        );
+
+        return {
+          ...char,
+          conditions: newConditions,
+        };
+      });
+
       return {
         ...state,
-        list: state.list.map((char) => {
-          const newConditions = char.conditions
-            .map((condition) => ({
-              ...condition,
-              duration: condition.duration - 1,
-            }))
-            .filter((condition) => condition.duration > 0);
-
-          return {
-            ...char,
-            conditions: newConditions,
-          };
-        }),
+        list: newList,
+        expiredConditions,
       };
     },
     changeAttackStyle(state, action) {
