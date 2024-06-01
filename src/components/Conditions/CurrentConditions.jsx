@@ -2,11 +2,18 @@ import { useDispatch } from 'react-redux';
 import { removeCondition } from '../../store/charactersSlice';
 import ConditionDrawer from './ConditionDrawer';
 import Button from '../Button';
+import toast from 'react-hot-toast';
+import MessageToast from '../Toasts/MessageToast';
 
 const CurrentConditions = ({ id, conditions }) => {
   const dispatch = useDispatch();
   const handleRemoveConditionClick = (condition) => {
     dispatch(removeCondition({ characterId: id, conditionName: condition }));
+    toast.custom(
+      <div className="flex flex-col">
+        <MessageToast message={`${condition} has been removed!`} />
+      </div>
+    );
   };
   return (
     <div className="flex">
