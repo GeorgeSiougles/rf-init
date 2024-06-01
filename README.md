@@ -69,9 +69,9 @@ Once the application is running, you can perform the following actions:
 
 ### Frontend:
 
-- React
-- Tailwind CSS
-- daisyUI
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [daisyUI](https://daisyui.com/)
 
 ### Backend:
 
