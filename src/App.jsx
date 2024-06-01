@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CharacterInput from './components/CharacterInput';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -12,13 +12,17 @@ import {
 } from './store/charactersSlice';
 import Table from './components/Table/Table';
 import RulePicker from './components/RulePicker';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+import MessageToast from './components/Toasts/MessageToast';
 
 function App() {
   const dispatch = useDispatch();
   const characters = useSelector((state) => state.characters.list);
   const ruleSet = useSelector((state) => state.characters.rules);
   const needSort = useSelector((state) => state.characters.needSort);
+  const expiredConditions = useSelector(
+    (state) => state.characters.expiredConditions
+  );
   const currentCharacterIndex = useSelector(
     (state) => state.characters.currentCharacterIndex
   );
@@ -29,6 +33,19 @@ function App() {
     dispatch(resetCharacters());
     setCurrentRound(1);
   };
+
+  useEffect(() => {
+    expiredConditions.map((expiredCondition) =>
+      toast.custom(
+        <div className="flex flex-col">
+          <MessageToast
+            message={`${expiredCondition.condition} has run out on ${expiredCondition.characterName}`}
+          />
+        </div>
+      )
+    );
+    console.log('Expired conditions:', expiredConditions);
+  }, [expiredConditions]);
 
   const handleEndTurn = () => {
     if (currentCharacterIndex < characters.length - 1) {
